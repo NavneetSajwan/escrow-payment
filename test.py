@@ -7,11 +7,11 @@ requests.post(
         "parties": [
             {
                 "role": "buyer",
-                "customer": "ns.chocoboy@gmail.com"
+                "customer": buyer_email
             },
             {
                 "role": "seller",
-                "customer": "keanu.reaves@test.escrow.com"
+                "customer": seller_email
             },
             {
                 "role": "broker",
@@ -23,30 +23,30 @@ requests.post(
 
         "items": [
             {
-                "title": "2 movies posters",
-                "description": "John Wick movie poster",
+                "title": "2 Lenovo Laptops",
+                "description": "Old and damaged",
                 "type": "general_merchandise",
                 "inspection_period": 259200,
                 "quantity": 2,
-                "type": "paypal_deposit",
                 "schedule": [
                     {
                         "amount": 3140.0,
-                        "payer_customer": "ns.chocoboy@gmail.com",
-                        "beneficiary_customer": "keanu.reaves@test.escrow.com"
-                    }],
+                        "payer_customer": buyer_email,
+                        "beneficiary_customer": seller_email
+                    }
+                    ],
                 "fees": [
                     {
-                        "payer_customer": "ns.chocoboy@gmail.com",
+                        "payer_customer": buyer_email,
                         "split": 0.5,
                         "type": "escrow"
                         },
                     {
-                        "payer_customer": "keanu.reaves@test.escrow.com",
+                        "payer_customer": seller_email,
                         "split": 0.5,
                         "type": "escrow"
                         },   
-                    ],
+                    ]
             },
 
             {
@@ -57,11 +57,23 @@ requests.post(
                 "quantity": 1,
                 "schedule": [
                     {
-                        "amount": 425.0,
-                        "payer_customer": "ns.chocoboy@gmail.com",
+                        "amount": 50.0,
+                        "payer_customer": buyer_email,
                         "beneficiary_customer": "me"
                     }
                 ],
+                 "fees": [
+                    {
+                        "payer_customer": buyer_email,
+                        "split": 0.5,
+                        "type": "escrow"
+                        },
+                    {
+                        "payer_customer": seller_email,
+                        "split": 0.5,
+                        "type": "escrow"
+                        },   
+                    ]
             },
             {
                 "title":"Broker Fee",
@@ -71,11 +83,22 @@ requests.post(
                 "quantity": 1,
                 "schedule": [
                     {
-                        "amount": 260.0,
-                        "payer_customer": "keanu.reaves@test.escrow.com",
+                        "amount": 50.0,
+                        "payer_customer": seller_email,
                         "beneficiary_customer": "me"
-                    }
-                ],
+                    }],
+                "fees": [
+                    {
+                        "payer_customer": buyer_email,
+                        "split": 0.5,
+                        "type": "escrow"
+                        },
+                    {
+                        "payer_customer": seller_email,
+                        "split": 0.5,
+                        "type": "escrow"
+                        },   
+                    ]
             },
         ]
     },
