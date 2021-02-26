@@ -1,68 +1,82 @@
 import requests
 
-resp = requests.post(
+requests.post(
     'https://api.escrow-sandbox.com/2017-09-01/transaction',
     auth=(admin_email, api_secret),
     json={
         "parties": [
             {
                 "role": "buyer",
-                "customer": buyer_email
+                "customer": "ns.chocoboy@gmail.com"
             },
             {
                 "role": "seller",
-                "customer": seller_email
+                "customer": "keanu.reaves@test.escrow.com"
             },
             {
                 "role": "broker",
                 "customer": "me"
-            },
+            }
         ],
         "currency": "usd",
-        "description": "The sale of Burj Khalifa",
+        "description": "2 Original signed copies of a movie poster for John Wick",
+
         "items": [
             {
-                "title": "Biggest sale",
-                "description": "BK",
+                "title": "2 movies posters",
+                "description": "John Wick movie poster",
                 "type": "general_merchandise",
-                "inspection_period": 43200,
-                "quantity": 1,
+                "inspection_period": 259200,
+                "quantity": 2,
+                "type": "paypal_deposit",
                 "schedule": [
                     {
-                        "amount": 2201.0,
-                        "payer_customer": buyer_email,
-                        "beneficiary_customer": seller_email
-                    }
-                ],
-                "extra_attributes": {
-                    "image_url": "https://i.ebayimg.com/images/g/RicAAOSwzO5e3DZs/s-l1600.jpg",
-                    "merchant_url": "https://www.ebay.com"
-                }
+                        "amount": 3140.0,
+                        "payer_customer": "ns.chocoboy@gmail.com",
+                        "beneficiary_customer": "keanu.reaves@test.escrow.com"
+                    }],
+                "fees": [
+                    {
+                        "payer_customer": "ns.chocoboy@gmail.com",
+                        "split": 0.5,
+                        "type": "escrow"
+                        },
+                    {
+                        "payer_customer": "keanu.reaves@test.escrow.com",
+                        "split": 0.5,
+                        "type": "escrow"
+                        },   
+                    ],
             },
-                        {
-                "title": "Broker Fee",
-                "description": "HG",
+
+            {
+                "title":"Broker Fee",
+                "description": "BF",
                 "type": "broker_fee",
-                "inspection_period": 43200,
+                "inspection_period": 259200,
                 "quantity": 1,
                 "schedule": [
                     {
                         "amount": 425.0,
-                        # "payer_customer": buyer_email,
-                        "split": 0.5,
+                        "payer_customer": "ns.chocoboy@gmail.com",
                         "beneficiary_customer": "me"
                     }
                 ],
-            }
-        ],
-        "fees": [
-                {
-                    "amount": 100.0,
-                    # "payer_customer": "john.wick@test.escrow.com",
-                    "split": 0.5,
-                    "type": "escrow"
-                }
-            ],
-        "type": 'paypal_deposit'
+            },
+            {
+                "title":"Broker Fee",
+                "description": "BF",
+                "type": "broker_fee",
+                "inspection_period": 259200,
+                "quantity": 1,
+                "schedule": [
+                    {
+                        "amount": 260.0,
+                        "payer_customer": "keanu.reaves@test.escrow.com",
+                        "beneficiary_customer": "me"
+                    }
+                ],
+            },
+        ]
     },
 )
